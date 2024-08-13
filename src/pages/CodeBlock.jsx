@@ -25,7 +25,7 @@ export default function CodeBlock({ id, description }) {
     socket.on("amount changed", ({ amount }) => {
       setAmount(amount);
     });
-  }, []);
+  }, [id, navigate]);
   return (
     <>
       <h1 style={{ textAlign: "center" }}>

@@ -37,7 +37,7 @@ export default function CodeEditor({ exDescription, exId, readOnly }) {
             value={value}
             onChange={(value) => {
               setValue(value);
-              socket.emit("code change", { value, roomId: exId });
+              !readOnly && socket.emit("code change", { value, roomId: exId });
             }}
             options={{ readOnly: readOnly }}
           />

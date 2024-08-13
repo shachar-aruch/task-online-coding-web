@@ -16,7 +16,7 @@ export default function CodeBlock({ id, description }) {
 
     socket.on("joined", ({ role }) => {
       setRole(role);
-      if (role === "student") {
+      if (role !== "teacher") {
         socket.on("teacher left", () => {
           navigate("/");
         });
@@ -24,6 +24,9 @@ export default function CodeBlock({ id, description }) {
     });
     socket.on("amount changed", ({ amount }) => {
       setAmount(amount);
+    });
+    socket.on("role changed", ({ role }) => {
+      setRole(role);
     });
   }, [id, navigate]);
   return (
@@ -35,9 +38,9 @@ export default function CodeBlock({ id, description }) {
       <CodeEditor
         exId={id}
         exDescription={description}
-        readOnly={role === "teacher"}
+        readOnly={role !== "student"}
       />
-      {role && <RoleIndicator role={role} />}
+      {role && <RoleIndicator role={role} id={id} />}
       {amount && <AmountStudents amount={amount} />}
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Button
